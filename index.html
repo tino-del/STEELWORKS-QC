@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>National Foods — Steelwork QC Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ============ SIDE RAIL ============ -->
+  <aside class="rail">
+    <div class="rail-brand">
+      <div class="mark">
+        <div class="mark-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C9 6 6 9 6 13a6 6 0 0012 0c0-4-3-7-6-11z" fill="#14161a"/>
+          </svg>
+        </div>
+        <div>
+          <h1>QC Control</h1>
+          <div class="sub">Steelwork Site · Milling</div>
+        </div>
+      </div>
+      <div class="rail-status"><span class="dot"></span> Systems nominal</div>
+    </div>
+
+    <nav class="rail-nav">
+      <div class="rail-group-label">Grain to Gate</div>
+      <button class="nav-item active" data-target="sec-intake"><span class="nav-num">01</span> Intake &amp; Grading</button>
+      <button class="nav-item" data-target="sec-production"><span class="nav-num">02</span> Production QC</button>
+      <button class="nav-item" data-target="sec-dispatch"><span class="nav-num">03</span> Dispatch QC</button>
+      <button class="nav-item" data-target="sec-returns"><span class="nav-num">04</span> Market Returns</button>
+
+      <div class="rail-group-label">Benchmarking &amp; Review</div>
+      <button class="nav-item" data-target="sec-competitors"><span class="nav-num">05</span> Competitor Analysis</button>
+      <button class="nav-item" data-target="sec-summary"><span class="nav-num">06</span> Monthly Summary</button>
+      <button class="nav-item" data-target="sec-recommendations"><span class="nav-num">07</span> Recommendations</button>
+      <button class="nav-item" data-target="sec-team"><span class="nav-num">08</span> Team &amp; Equipment</button>
+    </nav>
+
+    <div class="rail-footer">
+      <div class="label">Reporting period</div>
+      <div class="val" id="rail-period">—</div>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+
+    <!-- 01 INTAKE & GRADING -->
+    <section id="sec-intake" class="section active">
+      <div class="topbar">
+        <div>
+          <h2>Intake &amp; Grading</h2>
+          <div class="desc">Maize receiving, grading results, and sorghum grading for the reporting period.</div>
+        </div>
+        <div class="period" id="period-1">—</div>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi" id="kpi-maize-received"><div class="kpi-label">Maize received</div><div class="kpi-value">—</div></div>
+        <div class="kpi good" id="kpi-maize-graded"><div class="kpi-label">Graded acceptable</div><div class="kpi-value">—</div></div>
+        <div class="kpi bad" id="kpi-maize-rejected"><div class="kpi-label">Consignments rejected</div><div class="kpi-value">—</div></div>
+        <div class="kpi" id="kpi-maize-satisfaction"><div class="kpi-label">Avg. miller satisfaction /5</div><div class="kpi-value">—</div></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-head"><h3>Maize receiving &amp; grading</h3><span class="hint">7 consignments</span></div>
+          <div class="panel-body table-wrap">
+            <table id="tbl-maize">
+              <thead><tr>
+                <th>Batch</th><th>Supplier</th><th>Tonnes</th><th>Grade</th><th>Moisture</th>
+                <th>Foreign matter</th><th>Broken</th><th>Aflatoxin</th><th>Protein</th><th>Test wt</th>
+                <th>Miller satisfaction</th><th>Notes</th>
+              </tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3>Grade distribution (by tonnage)</h3></div>
+          <div class="panel-body"><div class="chart-box"><canvas id="chart-grade-dist"></canvas></div></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h3>Sorghum grading</h3><span class="hint">Red &amp; white/light red</span></div>
+        <div class="panel-body table-wrap">
+          <table id="tbl-sorghum">
+            <thead><tr><th>Batch</th><th>Color class</th><th>Grade</th><th>Moisture</th><th>Purity</th><th>Color score</th><th>Volume</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 PRODUCTION QC -->
+    <section id="sec-production" class="section">
+      <div class="topbar">
+        <div>
+          <h2>Production Quality Checks</h2>
+          <div class="desc">Weight checks and lab spec results across Grits, Roller Meal, Pearlenta and Multi Grain.</div>
+        </div>
+        <div class="period period-mirror">—</div>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi good" id="kpi-prod-pass"><div class="kpi-label">Overall batch pass rate</div><div class="kpi-value">—</div></div>
+        <div class="kpi" id="kpi-prod-batches"><div class="kpi-label">Batches tested</div><div class="kpi-value">—</div></div>
+        <div class="kpi bad" id="kpi-prod-fail"><div class="kpi-label">Batches failed</div><div class="kpi-value">—</div></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h3>Batch test results</h3><span class="hint">4 products</span></div>
+        <div class="panel-body table-wrap">
+          <table id="tbl-production">
+            <thead><tr>
+              <th>Product</th><th>Batch</th><th>Date</th><th>Pack</th><th>Weight check</th><th>Sampled</th>
+              <th>Moisture</th><th>Granulation</th><th>Color</th><th>Taste/odor</th><th>Foreign matter</th><th>Status</th>
+            </tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h3>Monthly pass/fail trend</h3><span class="hint">Last 6 months</span></div>
+        <div class="panel-body"><div class="chart-box"><canvas id="chart-pass-trend"></canvas></div></div>
+      </div>
+    </section>
+
+    <!-- 03 DISPATCH QC -->
+    <section id="sec-dispatch" class="section">
+      <div class="topbar">
+        <div>
+          <h2>Dispatch Quality Checks</h2>
+          <div class="desc">Outgoing delivery verification, shelf-life at dispatch, and spec compliance.</div>
+        </div>
+        <div class="period period-mirror">—</div>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi" id="kpi-dispatch-checked"><div class="kpi-label">Loads checked</div><div class="kpi-value">—</div></div>
+        <div class="kpi good" id="kpi-dispatch-compliant"><div class="kpi-label">Compliant</div><div class="kpi-value">—</div></div>
+        <div class="kpi bad" id="kpi-dispatch-held"><div class="kpi-label">Held / non-compliant</div><div class="kpi-value">—</div></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h3>Dispatch verification log</h3></div>
+        <div class="panel-body table-wrap">
+          <table id="tbl-dispatch">
+            <thead><tr>
+              <th>Truck ref</th><th>Product</th><th>Batch</th><th>Mfg date</th><th>Dispatch date</th>
+              <th>Shelf life left</th><th>Compliance</th><th>Buyer / destination</th><th>QC sign-off</th>
+            </tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 MARKET RETURNS -->
+    <section id="sec-returns" class="section">
+      <div class="topbar">
+        <div>
+          <h2>Market Returns Analysis</h2>
+          <div class="desc">Return reasons, reuse assessment, disposal, and financial impact.</div>
+        </div>
+        <div class="period period-mirror">—</div>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi bad" id="kpi-returns-total"><div class="kpi-label">Total returned</div><div class="kpi-value">—</div></div>
+        <div class="kpi" id="kpi-returns-fit"><div class="kpi-label">Fit for reuse</div><div class="kpi-value">—</div></div>
+        <div class="kpi warn" id="kpi-returns-top"><div class="kpi-label">Top return reason</div><div class="kpi-value" style="font-size:18px;">—</div></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-head"><h3>Returns log</h3></div>
+          <div class="panel-body table-wrap">
+            <table id="tbl-returns">
+              <thead><tr><th>Product</th><th>Batch</th><th>Reason</th><th>Qty</th><th>Assessment</th><th>Disposal</th><th>Impact</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3>Return reasons (kg)</h3></div>
+          <div class="panel-body"><div class="chart-box"><canvas id="chart-return-reasons"></canvas></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 COMPETITOR ANALYSIS -->
+    <section id="sec-competitors" class="section">
+      <div class="topbar">
+        <div>
+          <h2>Competitor Analysis</h2>
+          <div class="desc">Trade-sampled competitor products benchmarked against Better Buy specs.</div>
+        </div>
+        <div class="period period-mirror">—</div>
+      </div>
+
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-head"><h3>Competitor samples</h3></div>
+          <div class="panel-body table-wrap">
+            <table id="tbl-competitors">
+              <thead><tr>
+                <th>Brand</th><th>Type</th><th>Pack</th><th>Moisture</th><th>Weight accuracy</th>
+                <th>Color</th><th>Granulation</th><th>Rating</th><th>Notes</th>
+              </tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3>Better Buy vs. competitor avg</h3></div>
+          <div class="panel-body"><div class="chart-box tall"><canvas id="chart-competitor-radar"></canvas></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 MONTHLY SUMMARY -->
+    <section id="sec-summary" class="section">
+      <div class="topbar">
+        <div>
+          <h2>Monthly Summary &amp; KPIs</h2>
+          <div class="desc">Headline numbers for the period, at a glance.</div>
+        </div>
+        <div class="period period-mirror">—</div>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi good" id="kpi-sum-maize"><div class="kpi-label">Maize graded acceptable</div><div class="kpi-value">—</div></div>
+        <div class="kpi" id="kpi-sum-satisfaction"><div class="kpi-label">Miller satisfaction /5</div><div class="kpi-value">—</div></div>
+        <div class="kpi" id="kpi-sum-dispatch"><div class="kpi-label">Dispatch compliant</div><div class="kpi-value">—</div></div>
+        <div class="kpi warn" id="kpi-sum-returns"><div class="kpi-label">Returns fit for reuse</div><div class="kpi-value">—</div></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-head"><h3>Batch pass rate by product</h3></div>
+          <div class="panel-body table-wrap">
+            <table id="tbl-batch-pass"><thead><tr><th>Product</th><th>Pass rate</th></tr></thead><tbody></tbody></table>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3>Miller satisfaction trend</h3></div>
+          <div class="panel-body"><div class="chart-box"><canvas id="chart-satisfaction-trend"></canvas></div></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h3>Top quality issues this month</h3></div>
+        <div class="panel-body">
+          <ul id="list-top-issues" style="margin:0; padding-left:18px; color: var(--text-muted); line-height:1.9;"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 RECOMMENDATIONS -->
+    <section id="sec-recommendations" class="section">
+      <div class="topbar">
+        <div>
+          <h2>Recommendations &amp; Improvement Tracker</h2>
+          <div class="desc">Corrective actions from this month's findings, tracked to closure.</div>
+        </div>
+        <div class="period period-mirror">—</div>
+      </div>
+
+      <div class="rec-grid">
+        <div>
+          <div class="rec-col-head open">Open <span id="rec-open-count">0</span></div>
+          <div id="rec-open"></div>
+        </div>
+        <div>
+          <div class="rec-col-head progress">In progress <span id="rec-progress-count">0</span></div>
+          <div id="rec-progress"></div>
+        </div>
+        <div>
+          <div class="rec-col-head closed">Closed <span id="rec-closed-count">0</span></div>
+          <div id="rec-closed"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 TEAM & EQUIPMENT -->
+    <section id="sec-team" class="section">
+      <div class="topbar">
+        <div>
+          <h2>Team, Equipment &amp; Suppliers</h2>
+          <div class="desc">QC activity log, calibration status, supplier consistency, and non-conformance counts.</div>
+        </div>
+        <div class="period period-mirror">—</div>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi" id="kpi-act-inspections"><div class="kpi-label">Inspections conducted</div><div class="kpi-value">—</div></div>
+        <div class="kpi" id="kpi-act-samples"><div class="kpi-label">Samples collected</div><div class="kpi-value">—</div></div>
+        <div class="kpi" id="kpi-act-tests"><div class="kpi-label">Tests performed</div><div class="kpi-value">—</div></div>
+        <div class="kpi warn" id="kpi-act-ncr"><div class="kpi-label">NCRs raised</div><div class="kpi-value">—</div></div>
+      </div>
+
+      <div class="grid-3">
+        <div class="panel">
+          <div class="panel-head"><h3>Equipment calibration</h3></div>
+          <div class="panel-body table-wrap">
+            <table id="tbl-equipment"><thead><tr><th>Item</th><th>Last cal.</th><th>Next due</th><th>Status</th></tr></thead><tbody></tbody></table>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3>Supplier consistency</h3></div>
+          <div class="panel-body table-wrap">
+            <table id="tbl-suppliers"><thead><tr><th>Supplier</th><th>Consignments</th><th>Avg. grade</th><th>Consistency</th></tr></thead><tbody></tbody></table>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3>NCRs by product</h3></div>
+          <div class="panel-body table-wrap">
+            <table id="tbl-ncr"><thead><tr><th>Product / area</th><th>NCR count</th></tr></thead><tbody></tbody></table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="foot-note">National Foods — Steelwork site QC dashboard · Sample data for demonstration · Edit DATA in script.js to load real figures</div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="script.js"></script>
+<script>
+  document.querySelectorAll("#period-1, .period-mirror, #rail-period").forEach(el => el.textContent = DATA.period);
+</script>
+</body>
+</html>
