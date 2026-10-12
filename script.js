@@ -8,7 +8,7 @@
 
 const DATA = {
 
-  period: "August 2026",
+  period: "October 2026",
 
   // ---------------- 1. Raw material intake & grading ----------------
   maize: {
@@ -41,6 +41,7 @@ const DATA = {
     { product:"Multi Grain",              batch:"MG-0288",    date:"2026-08-14", pack:"2kg",  weightResult:"Pass (2.01kg avg)",  sampled:25, moisture:"Pass", granulation:"Pass", color:"Pass", taste:"Pass", foreign:"Pass", nutrition:"Pass", status:"Pass" },
     { product:"Multi Grain",              batch:"MG-0296",    date:"2026-08-26", pack:"5kg",  weightResult:"Pass (5.03kg avg)",  sampled:25, moisture:"Pass", granulation:"Pass", color:"Pass", taste:"Pass", foreign:"Pass", nutrition:"Pass", status:"Pass" },
   ],
+   
 
   // ---------------- 3. Dispatch quality checks ----------------
   dispatch: [
@@ -50,6 +51,9 @@ const DATA = {
     { truck:"AGX 6220", product:"Multi Grain",              batch:"MG-0288",    mfg:"2026-08-14", dispatch:"2026-08-17", shelfLeft:"169 days", compliance:"Pass", buyer:"OK Zimbabwe — Mutare",  officer:"T. Moyo" },
     { truck:"AGX 7183", product:"Roller Meal (Better Buy)", batch:"BB-RM-2214", mfg:"2026-08-12", dispatch:"2026-08-18", shelfLeft:"—",       compliance:"Held — granulation fail", buyer:"—", officer:"N. Chuma" },
   ],
+   dispatch-summary :{products: ["H/F Pearl", "Pearl", "B/B", "R/S", "Multi grain"],
+                      shelflife: {"H/F Pearl":{green: 1, amber:1, red:1
+      
 
   // ---------------- 4. Market returns ----------------
   returns: [
