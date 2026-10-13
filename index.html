@@ -143,15 +143,19 @@
         </div>
         <div class="period period-mirror">—</div>
       </div>
-
-      <div class="kpi-row">
-        <div class="kpi" id="kpi-dispatch-checked"><div class="kpi-label">Loads checked</div><div class="kpi-value">—</div></div>
-        <div class="kpi good" id="kpi-dispatch-compliant"><div class="kpi-label">Compliant</div><div class="kpi-value">—</div></div>
-        <div class="kpi bad" id="kpi-dispatch-held"><div class="kpi-label">Held / non-compliant</div><div class="kpi-value">—</div></div>
+      
+    
       </div>
-
       <div class="panel">
-        <div class="panel-head"><h3>Dispatch verification log</h3></div>
+        <div class="panel-head"><h3>Shelf life at dispatch- % of consignments</h3>
+        <span class="hint"> Green &gt;75 days. Amber 61-75. Red &lt;61</span>
+        </div>
+        
+        <div class="panel-body"><div
+                                  class="chart-box"><canvas id=" Chart-dispatch-traffic"></canvas>canvas><
+                                                                                                           </div></div> 
+
+      
         <div class="panel-body table-wrap">
           <table id="tbl-dispatch">
             <thead><tr>
