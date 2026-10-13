@@ -52,7 +52,11 @@ const DATA = {
     { truck:"AGX 7183", product:"Roller Meal (Better Buy)", batch:"BB-RM-2214", mfg:"2026-08-12", dispatch:"2026-08-18", shelfLeft:"—",       compliance:"Held — granulation fail", buyer:"—", officer:"N. Chuma" },
   ],
    dispatch-summary :{products: ["H/F Pearl", "Pearl", "B/B", "R/S", "Multi grain"],
-                      shelflife: {"H/F Pearl":{green: 1, amber:1, red:1
+                      shelflife: {"H/F Pearl":{green: 1, amber:1, red:1},
+                                "Pearl" :{green: 1, amber:1, red:1},
+                                "B/B": {green: 1, amber:1, red:1},
+                                 "R/S":{green: 1, amber:1, red:1},
+                                 "Multi grain": {green: 1, amber:1, red:1},}}
       
 
   // ---------------- 4. Market returns ----------------
@@ -75,7 +79,7 @@ const DATA = {
 
   // ---------------- 6. Monthly summary numbers ----------------
   summary: {
-    maizeReceived: 3180,
+    maizeReceived: 10,
     maizeGradedPct: 91.4,
     batchPassRates: { "Roller Meal":83, "Grits":83, "Pearlenta":83, "Multi Grain":100 },
     millerSatisfactionAvg: 4.0,
@@ -138,6 +142,11 @@ const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
 
 function badge(text, tone){
   return `<span class="badge ${tone}">${text}</span>`;
+}
+function toPercentBands (bands) {const total = bands.green +bands.amber +bands.red ;
+                                 return {green: +(bands.green/total*100).toFixed(1),
+                                         amber: +(bands.amber/total*100).toFixed(1),
+                                         red: +(bands.red/total*100).toFixed(1), };
 }
 function statusTone(status){
   const s = String(status).toLowerCase();
