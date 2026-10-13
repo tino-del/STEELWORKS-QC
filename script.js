@@ -2,8 +2,8 @@
    NATIONAL FOODS — STEELWORK SITE QC DASHBOARD
    All data below is SAMPLE data for August 2026 — replace the arrays
    in DATA with your real monthly figures. Every table and chart on
-   the page is rendered from this object, so editing it is all you
-   need to do to refresh the dashboard for a new month.
+   the page is made from this object, so editing it is all you
+   need to do to refresh the dashboard for a new month haikona kubata zvausimga zive .
    =================================================================== */
 
 const DATA = {
@@ -279,9 +279,7 @@ function renderDispatch(){
 
   const total = DATA.dispatch.length;
   const compliant = DATA.dispatch.filter(r => r.compliance === "Pass").length;
-  $("#kpi-dispatch-checked .kpi-value").textContent = total;
-  $("#kpi-dispatch-compliant .kpi-value").textContent = `${Math.round(compliant/total*100)}%`;
-  $("#kpi-dispatch-held .kpi-value").textContent = total - compliant;
+  const products= Dat.dispatchSummary.products
 }
 
 function renderReturns(){
