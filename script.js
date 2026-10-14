@@ -1,4 +1,4 @@
-/* ===================================================================
+   /* ===================================================================
    NATIONAL FOODS — STEELWORK SITE QC DASHBOARD
    All data below is SAMPLE data for August 2026 — replace the arrays
    in DATA with your real monthly figures. Every table and chart on
@@ -279,7 +279,11 @@ function renderDispatch(){
 
   const total = DATA.dispatch.length;
   const compliant = DATA.dispatch.filter(r => r.compliance === "Pass").length;
-  const products= Dat.dispatchSummary.products
+  const products= Dat.dispatchSummary.products; const pct=product.map(=>toPercentBands(DATA.dipatchSUmmary.shelfLife[p]));
+   new Chart($("#chart-dispatch-traffic-light"),
+             {type:"bar",data:
+             {labels:product,datasets:
+                [label: "Green (>80 days)"data; pct.map (p=>p.amber), backgroundcolor:"#d0a530"}
 }
 
 function renderReturns(){
