@@ -284,6 +284,7 @@ function renderDispatch(){
              {type:"bar",data:
              {labels:product,datasets:
                 [label: "Green (>80 days)"data; pct.map (p=>p.amber), backgroundcolor:"#d0a530"}
+             {
 }
 
 function renderReturns(){
